@@ -313,7 +313,7 @@ uint8_t eeprom_compare_key(uint8_t * key) {
 // Entry point
 // -----------------------------------------------------
 int main( void ) {
-  uint8_t ds1990_own_key[DS1990_KEY_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00 };
+  uint8_t ds1990_own_key[DS1990_KEY_LEN] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
   uint8_t ds1990_rem_key[DS1990_KEY_LEN];
 
   glcd_init();
