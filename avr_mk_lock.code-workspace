@@ -1,0 +1,25 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+	"settings": {
+		"sync-rsync.notification" : true,
+		"sync-rsync.sites": [
+			{
+				"name" : "SYNC. Firmwares",
+				"localPath": "/Users/snoway/Documents/Businesses/Code/github/avr_mk_lock/sources/",
+				"remotePath": "jtagmachine:/home/jtag/projects/avr_mk_lock/sources/",
+				"deleteFiles": false,
+				"exclude": [ "*" ],
+				"include": [
+					"Makefile",
+					"**/*.hex",
+					"**/*.c",
+					"**/*.h"
+				],
+			}
+		]
+	}
+}
