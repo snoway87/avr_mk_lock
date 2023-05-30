@@ -220,20 +220,20 @@ char font[][5] = {
 void glcd_exec(uint8_t value, uint8_t is_command) {
   GLCD_DATA_PORT = value;             /* Передаем байт на GLCD */
   if(is_command) {
-    DDRA &= ~GLCD_EXEC_RS;  /* Передаем команду */
+    PORTA &= ~GLCD_EXEC_RS;  /* Передаем команду */
   } else {
-    DDRA |= GLCD_EXEC_RS;   /* Передаем данные */
+    PORTA |= GLCD_EXEC_RS;   /* Передаем данные */
   }
-  DDRA &= ~GLCD_EXEC_RW;    /* Выбрать операцию записи */
-  DDRD |= GLCD_EXEC_EN;     /* Начать передау */
+  PORTA &= ~GLCD_EXEC_RW;    /* Выбрать операцию записи */
+  PORTD |= GLCD_EXEC_EN;     /* Начать передау */
   _delay_us(10);
-  DDRD &= ~GLCD_EXEC_EN;    /* Закончить передачу */
+  PORTD &= ~GLCD_EXEC_EN;    /* Закончить передачу */
   _delay_us(10);
 }
 
 void glcd_clear( void ) {
   // Параллельно чистим обе части экрана
-  DDRB |= GLCD_EXEC_CS1 | GLCD_EXEC_CS2;
+  PORTB |= GLCD_EXEC_CS1 | GLCD_EXEC_CS2;
   for(int i = 0; i < GLCD_X_TOTAL; i ++) {
     glcd_exec(GLCD_X_ADDR + i, 1);
     for(int j = 0; j < GLCD_Y_TOTAL; j ++) {
@@ -249,14 +249,14 @@ void glcd_print(uint8_t x_offset, char * str) {
   for(int i = 0; str[i] != 0 || i < GLCD_MAX_LENGTH; i++ ) {
     // Первые 4 символа рисуем на левой части дисплея
     if( i == 0 ) {
-      DDRB |=  GLCD_EXEC_CS1;
-      DDRB &= ~GLCD_EXEC_CS2;
+      PORTB |=  GLCD_EXEC_CS1;
+      PORTB &= ~GLCD_EXEC_CS2;
       glcd_exec(GLCD_X_ADDR + x_offset, 1);
     }
     // Вторые 4 символа рисуем на правой части дисплея
     if( i == 4 ) {
-      DDRB &= ~GLCD_EXEC_CS1;
-      DDRB |=  GLCD_EXEC_CS2;
+      PORTB &= ~GLCD_EXEC_CS1;
+      PORTB |=  GLCD_EXEC_CS2;
       glcd_exec(GLCD_X_ADDR + x_offset, 1);
     }
 
