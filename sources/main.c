@@ -154,21 +154,24 @@ lcd_char(uint8_t ch) {
 }
 
 void
-lcd_print (char *str)
-{
+lcd_print (char *str) {
   for(int i = 0; str[i]!= 0; i++)
     lcd_char(str[i]);
 }
 
 void
-lcd_init (void)
-{
+lcd_clear() {
+  lcd_command (0x01); /* Очищаем дисплей */
+  lcd_command (0x80); /* Курсор на насчало */
+}
+
+void
+lcd_init (void) {
 	_delay_ms(20);
 	lcd_command (0x38);	/* 8 битный режим */
 	lcd_command (0x0c);	/* Включаем дисплей */
 	lcd_command (0x06);	/* Автоинкримент курсора */
-	lcd_command (0x01);	/* Очищаем дисплей */
-	lcd_command (0x80);	/* Курсор на насчало */
+  lcd_clear();
 }
 
 //
@@ -224,6 +227,7 @@ main( void ) {
       }
       /* Отображаем данные на LCD */
       sprintf(lcd_string, "%.1f cm", _actual_distance);
+      lcd_clear();
       lcd_print(lcd_string);
       /* Опрашиваем 1 раз в сек */
       _delay_ms(1000);
@@ -231,6 +235,7 @@ main( void ) {
     /* Режим конфигурации  */
     } else {
       sprintf(lcd_string, "CONF: %.1f cm", _target_distance);
+      lcd_clear();
       lcd_print(lcd_string);
       _delay_ms(1);
     }
