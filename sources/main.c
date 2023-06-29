@@ -179,6 +179,9 @@ lcd_init (void) {
 // -----------------------------------------------------
 int
 main( void ) {
+  /* Конфигурация порта дисплея */
+  PORTD = 0xff;
+
   /* Конфигурация портов датчиков */
   DDRA |= (SENSOR1_PIN | SENSOR2_PIN | SENSOR3_PIN | SENSOR4_PIN);
   DDRA &= ~(SENSOR1_ECHO | SENSOR2_ECHO | SENSOR3_ECHO | SENSOR4_ECHO);
